@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alias | Verio Apps Didácticas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<style>
+:root {
+    --cream-light: #FDF8F3;
+    --cream: #F5EDE4;
+    --cream-dark: #E8DDD0;
+    --sage-light: #C5D4C0;
+    --sage: #9BB08F;
+    --sage-dark: #7A9A6D;
+    --terracotta-light: #D4847C;
+    --terracotta: #B85C50;
+    --terracotta-dark: #8B3A30;
+    --wood-light: #D4B896;
+    --wood: #A67B5B;
+    --wood-dark: #6B4423;
+    --text-primary: #2C2420;
+    --text-secondary: #5C544D;
+    --text-muted: #8A817A;
+    --border: #D4C8BC;
+    --shadow-sm: 0 1px 3px rgba(44, 36, 32, 0.08);
+    --shadow-md: 0 4px 12px rgba(44, 36, 32, 0.12);
+    --shadow-lg: 0 8px 24px rgba(44, 36, 32, 0.16);
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 16px;
+    --t: all 0.2s ease;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: linear-gradient(135deg, var(--cream-light) 0%, var(--cream) 100%);
+    color: var(--text-primary);
+    min-height: 100vh;
+    padding: 24px;
+    line-height: 1.5;
+}
+
+.app-container {
+    display: flex;
+    gap: 24px;
+    max-width: 1600px;
+    margin: 0 auto;
+    min-height: calc(100vh - 48px);
+}
+
+.controls-panel {
+    width: 420px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.plots-panel {
+    flex: 1;
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: 16px;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.header {
+    background: linear-gradient(135deg, var(--terracotta) 0%, var(--terracotta-dark) 100%);
+    padding: 14px 20px;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+}
+
+.header h1 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--cream-light);
+    letter-spacing: -0.3px;
+}
+
+.header p {
+    font-size: 11px;
+    opacity: 0.85;
+    color: var(--cream-light);
+    margin-top: 2px;
+}
+
+.group-box {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 14px;
+    box-shadow: var(--shadow-sm);
+}
+
+.group-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--cream-dark);
+}
+
+.form-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.form-row:last-child { margin-bottom: 0; }
+
+.form-label {
+    width: 110px;
+    font-size: 12px;
+    color: var(--text-secondary);
+    flex-shrink: 0;
+}
+
+.form-control {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    flex: 1;
+    height: 6px;
+    background: var(--border);
+    border-radius: 3px;
+    outline: none;
+    cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    background: var(--terracotta);
+    border: 2px solid white;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: var(--shadow-sm);
+    transition: var(--t);
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+    background: var(--terracotta-dark);
+    transform: scale(1.1);
+}
+
+input[type="range"]::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    background: var(--terracotta);
+    border: 2px solid white;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+input[type="number"] {
+    width: 80px;
+    padding: 6px 10px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--cream-light);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--text-primary);
+    text-align: center;
+    transition: var(--t);
+}
+
+input[type="number"]:focus {
+    outline: none;
+    border-color: var(--sage);
+    background: white;
+    box-shadow: 0 0 0 3px rgba(155, 176, 143, 0.2);
+}
+
+.unit {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--text-muted);
+}
+
+.display-field {
+    flex: 1;
+    padding: 8px 12px;
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--terracotta);
+    text-align: center;
+}
+
+.display-field.muted { color: var(--text-muted); }
+
+.formulas-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    padding: 4px 0;
+}
+
+.formula-box {
+    background: var(--cream-light);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 12px 16px;
+    text-align: center;
+    width: 100%;
+}
+
+.formula-box .katex { font-size: 1rem; }
+
+.buttons-row {
+    display: flex;
+    gap: 10px;
+    margin-top: auto;
+}
+
+.btn {
+    flex: 1;
+    padding: 10px 14px;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--t);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--terracotta) 0%, var(--terracotta-dark) 100%);
+    color: white;
+}
+
+.btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+}
+
+.btn-secondary {
+    background: var(--cream);
+    color: var(--text-secondary);
+    border: 1px solid var(--border);
+}
+
+.btn-secondary:hover {
+    background: var(--sage);
+    color: white;
+    border-color: var(--sage);
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    user-select: none;
+    width: 100%;
+}
+
+.checkbox-container input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark {
+    width: 20px;
+    height: 20px;
+    background: var(--cream-light);
+    border: 2px solid var(--border);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--t);
+    flex-shrink: 0;
+}
+
+.checkbox-container:hover .checkmark { border-color: var(--terracotta); }
+
+.checkbox-container input:checked ~ .checkmark {
+    background: var(--terracotta);
+    border-color: var(--terracotta);
+}
+
+.checkmark::after {
+    content: '';
+    display: none;
+    width: 5px;
+    height: 9px;
+    border: solid white;
+    border-width: 0 2.5px 2.5px 0;
+    transform: rotate(45deg);
+    margin-bottom: 2px;
+}
+
+.checkbox-container input:checked ~ .checkmark::after { display: block; }
+
+.checkbox-label {
+    font-size: 12px;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.checkbox-container:hover .checkbox-label { color: var(--terracotta); }
+
+.chart-container {
+    flex: 1;
+    position: relative;
+    min-height: 280px;
+}
+
+.chart-container canvas {
+    width: 100% !important;
+    height: 65% !important;
+}
+
+.chart-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-align: center;
+    margin-bottom: 6px;
+}
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(44, 36, 32, 0.5);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--t);
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    max-width: 700px;
+    width: 90%;
+    max-height: 85vh;
+    overflow-y: auto;
+    box-shadow: var(--shadow-lg);
+    transform: translateY(20px);
+    transition: var(--t);
+}
+
+.modal-overlay.active .modal-content { transform: translateY(0); }
+
+.modal-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--cream-dark);
+}
+
+.note-card {
+    background: var(--cream);
+    border-radius: var(--radius-sm);
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 13px;
+    line-height: 1.55;
+    color: var(--text-secondary);
+}
+
+.note-card strong { color: var(--text-primary); }
+
+.note-card.note-filter {
+    background: linear-gradient(135deg, var(--cream) 0%, var(--sage-light) 100%);
+    border-left: 4px solid var(--sage);
+}
+
+.filter-specs {
+    margin: 10px 0 10px 6px;
+    padding-left: 14px;
+    list-style: none;
+}
+
+.filter-specs li {
+    margin-bottom: 5px;
+    font-size: 12px;
+}
+
+.filter-specs .spec-label {
+    font-weight: 600;
+    color: var(--wood-dark);
+    display: inline-block;
+    min-width: 140px;
+}
+
+.filter-note {
+    margin-top: 10px;
+    padding: 10px 12px;
+    background: rgba(255, 255, 255, 0.65);
+    border-radius: var(--radius-sm);
+    font-size: 12px;
+    color: var(--text-secondary);
+    border: 1px dashed var(--sage);
+}
+
+.filter-note strong { color: var(--sage-dark); }
+
+.modal-formula {
+    background: var(--cream-light);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 16px;
+    text-align: center;
+    margin: 12px 0;
+}
+
+.modal-close {
+    display: block;
+    margin: 16px auto 0;
+    padding: 10px 28px;
+    flex: 0;
+    min-width: 140px;
+}
+
+.legend {
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    flex-wrap: wrap;
+    margin-top: 6px;
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.legend-color {
+    width: 18px;
+    height: 4px;
+    border-radius: 2px;
+}
+
+.legend-color.original { background: var(--terracotta); }
+.legend-color.alias { background: var(--sage-dark); }
+.legend-color.samples {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--wood-dark);
+}
+
+@media (max-width: 1200px) {
+    .app-container { flex-direction: column; }
+    .controls-panel { width: 100%; }
+    .plots-panel { min-height: 600px; }
+}
+</style>
+</head>
+<body>
+<div class="app-container">
+    <div class="controls-panel">
+        <div class="header">
+            <h1>Alias</h1>
+            <p>Representación del fenomeno Alias</p>
+        </div>
+
+        <div class="group-box">
+            <div class="group-title">Frecuencia de Muestreo (Fm)</div>
+            <div class="form-row">
+                <span class="form-label">Frec. Muestreo:</span>
+                <div class="form-control">
+                    <input type="range" id="sampleSlider" min="2" max="200" value="50">
+                    <input type="number" id="sampleInput" min="2" max="200" value="50">
+                    <span class="unit">Hz</span>
+                </div>
+            </div>
+            <div class="form-row">
+                <span class="form-label">Frec. Nyquist:</span>
+                <div class="form-control">
+                    <div class="display-field" id="nyquistDisplay">25.0 Hz</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="group-box">
+            <div class="group-title">Frecuencia Estímulo</div>
+            <div class="form-row">
+                <span class="form-label">Frec. Estímulo:</span>
+                <div class="form-control">
+                    <input type="range" id="stimSlider" min="1" max="200" value="25">
+                    <input type="number" id="stimInput" min="1" max="200" value="25">
+                    <span class="unit">Hz</span>
+                </div>
+            </div>
+            <div class="form-row">
+                <span class="form-label">Frec. Alias:</span>
+                <div class="form-control">
+                    <div class="display-field muted" id="aliasDisplay">—</div>
+                </div>
+            </div>
+            <div class="form-row" style="margin-top:6px;padding-top:10px;border-top:1px solid var(--cream-dark);">
+                <label class="checkbox-container">
+                    <input type="checkbox" id="antialiasCheckbox">
+                    <span class="checkmark"></span>
+                    <span class="checkbox-label">Filtro Anti-Alias / FIR</span>
+                </label>
+            </div>
+        </div>
+
+        <div class="group-box">
+            <div class="group-title">Fórmulas Generales</div>
+            <div class="formulas-container">
+                <div class="formula-box" id="formulaNyquist"></div>
+                <div class="formula-box" id="formulaAlias"></div>
+            </div>
+        </div>
+
+        <div class="buttons-row">
+            <button class="btn btn-primary" id="btnNotas">📝 Advertencias</button>
+            <button class="btn btn-secondary" id="btnReset">⟳ Reiniciar</button>
+        </div>
+    </div>
+
+    <div class="plots-panel">
+        <div class="chart-container">
+            <div class="chart-title">Dominio del Tiempo</div>
+            <canvas id="timeChart"></canvas>
+            <div class="legend">
+                <div class="legend-item">
+                    <span class="legend-color original"></span>
+                    <span id="legendOriginal">Original (25 Hz)</span>
+                </div>
+                <div class="legend-item" id="legendAliasItem" style="display:none;">
+                    <span class="legend-color alias"></span>
+                    <span id="legendAlias">Alias</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color samples"></span>
+                    <span id="legendSamples">Muestras (50 Hz)</span>
+                </div>
+            </div>
+        </div>
+        <div class="chart-container">
+            <div class="chart-title">Dominio de la Frecuencia (Plegado)</div>
+            <canvas id="freqChart"></canvas>
+        </div>
+    </div>
+</div>
+
+<div class="modal-overlay" id="modalNotas">
+    <div class="modal-content">
+        <div class="modal-title">Advertencias de la Aplicación</div>
+
+        <div class="note-card">
+            <strong>Nota matemática:</strong> En la fórmula de Alias, <em>k</em> representa el número entero más cercano al cociente entre la frecuencia de entrada y la de muestreo (<em>k</em> ≈ <em>f</em><sub>Entrada</sub>/<em>f</em><sub>Muestreo</sub>). Esto define el orden del foldback.
+        </div>
+
+        <div class="note-card">
+            <strong>Ambigüedad de Nyquist:</strong> Cuando <em>f</em><sub>Entrada</sub> = <em>f</em><sub>Nyquist</sub>, la reconstrucción del Nivel o la Intensidad es matemáticamente indeterminada sin información de fase. Las muestras pueden anularse (valor cero) aunque exista señal, como se observa en la representación.
+        </div>
+
+        <div class="note-card">
+            <strong>Terminología:</strong> Se utiliza el término "Estímulo" para designar la señal de entrada (<em>f</em><sub>in</sub>) una senoidal aplicada al conversor A/D.
+        </div>
+
+        <div class="note-card note-filter">
+            <strong>Filtro Anti-Alias:</strong> En esta simulación se asume un filtro Analógico <em>ideal</em> (brick-wall) con las siguientes características:
+            <ul class="filter-specs">
+                <li><span class="spec-label">Tipo:</span> Pasa-bajos (Low-Pass Filter)</li>
+                <li><span class="spec-label">Frecuencia de corte:</span> <em>f</em><sub>c</sub> = <em>f</em><sub>Nyquist</sub> = <em>f</em><sub>s</sub>/2</li>
+                <li><span class="spec-label">Topología ideal:</span> Brick-wall</li>
+                <li><span class="spec-label">Pendiente:</span> ∞ dB/octava (Infinita)</li>
+                <li><span class="spec-label">Banda pasante:</span> 0 Hz → <em>f</em><sub>Nyquist</sub> (ganancia adimensional = 1)</li>
+                <li><span class="spec-label">Banda de atenuación:</span> > <em>f</em><sub>Nyquist</sub> (ganancia adimensional = 0)</li>
+            </ul>
+            <div class="filter-note">
+                <strong>Nota:</strong> En implementaciones reales se utilizan filtros con pendientes finitas: Butterworth, Chebyshev (con rizado en la banda pasante), Bessel (fase de grupo constante) o Ellíptico (Cauer). Las pendientes típicas son 12, 24, 48 o 96 dB/octava según el orden del filtro (2º, 4º, 8º, 16º respectivamente).
+                El Filtro Anti-Alias de la casilla seleccionable hace referencia al Filtro FIR (Digital) que hace el trabajo mayoritario, el Filtro Analógico es una primera etapa previa al Delta/Sigma.
+            </div>
+        </div>
+
+        <div class="modal-formula" id="formulaModal"></div>
+
+        <button class="btn btn-primary modal-close" id="btnCloseModal">Cerrar</button>
+    </div>
+</div>
+
+<script>
+const pal = {
+    cream:      '#FDF8F3',
+    creamSoft:  '#F5EDE4',
+    creamDeep:  '#E8DDD0',
+    sage:       '#9BB08F',
+    sageSoft:   '#C5D4C0',
+    sageDark:   '#7A9A6D',
+    terra:      '#B85C50',
+    terraDark:  '#8B3A30',
+    wood:       '#A67B5B',
+    woodDark:   '#6B4423',
+    ink:        '#2C2420',
+    inkSoft:    '#5C544D',
+    inkFaded:   '#8A817A',
+    paper:      '#FFFFFF'
+};
+
+const TAU = Math.PI * 2;
+
+const state = { fSample: 50, fStim: 25, antialiasOn: false };
+
+const $ = id => document.getElementById(id);
+
+const sampleSlider     = $('sampleSlider');
+const sampleInput      = $('sampleInput');
+const stimSlider       = $('stimSlider');
+const stimInput        = $('stimInput');
+const nyquistDisplay   = $('nyquistDisplay');
+const aliasDisplay     = $('aliasDisplay');
+const antialiasCheck   = $('antialiasCheckbox');
+const cvTime           = $('timeChart');
+const cvFreq           = $('freqChart');
+const btnNotas         = $('btnNotas');
+const btnReset         = $('btnReset');
+const btnCloseModal    = $('btnCloseModal');
+const modalNotas       = $('modalNotas');
+
+const foldback = (fin, fs) => {
+    const ny = fs / 2;
+    return Math.abs(((fin + ny) % fs) - ny);
+};
+
+const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
+
+function setupCanvas(cv) {
+    const r = cv.getBoundingClientRect();
+    const dpr = window.devicePixelRatio || 1;
+    cv.width = r.width * dpr;
+    cv.height = r.height * dpr;
+    const ctx = cv.getContext('2d');
+    ctx.scale(dpr, dpr);
+    return { ctx, w: r.width, h: r.height };
+}
+
+function renderMath() {
+    katex.render(
+        String.raw`f_{\text{Nyquist}} = \frac{f_{\text{Muestreo}}}{2}`,
+        $('formulaNyquist'), { displayMode: true }
+    );
+    katex.render(
+        String.raw`f_{\text{Alias}} = \left| f_{\text{Estímulo}} - k \cdot f_{\text{Muestreo}} \right|`,
+        $('formulaAlias'), { displayMode: true }
+    );
+    katex.render(
+        String.raw`f_{\text{Alias}} = \left| f_{\text{Entrada}} - \text{redondeo}\left(\frac{f_{\text{Entrada}}}{f_{\text{Muestreo}}}\right) \cdot f_{\text{Muestreo}} \right|`,
+        $('formulaModal'), { displayMode: true }
+    );
+}
+
+function drawTime() {
+    const { ctx, w, h } = setupCanvas(cvTime);
+    const pad = { top: 20, right: 20, bottom: 40, left: 50 };
+    const cw = w - pad.left - pad.right;
+    const ch = h - pad.top - pad.bottom;
+
+    const fs = state.fSample;
+    const fin = state.fStim;
+    const fNyq = fs / 2;
+    const fAl = foldback(fin, fs);
+    const filterOn = state.antialiasOn;
+    const filtered = filterOn && fin > fNyq;
+
+    const tDur = Math.max(5 / fin, 5 / fs, 0.1);
+
+    ctx.fillStyle = pal.paper;
+    ctx.fillRect(0, 0, w, h);
+
+    const sx = t => pad.left + (t / tDur) * cw;
+    const sy = v => pad.top + ch / 2 - (v * ch / 2.3);
+
+    ctx.strokeStyle = 'rgba(107, 91, 79, 0.1)';
+    ctx.lineWidth = 1;
+    for (let i = -1; i <= 1; i += 0.5) {
+        ctx.beginPath();
+        ctx.moveTo(pad.left, sy(i));
+        ctx.lineTo(w - pad.right, sy(i));
+        ctx.stroke();
+    }
+
+    ctx.strokeStyle = pal.inkFaded;
+    ctx.lineWidth = 0.5;
+    ctx.beginPath();
+    ctx.moveTo(pad.left, sy(0));
+    ctx.lineTo(w - pad.right, sy(0));
+    ctx.stroke();
+
+    if (!filtered) {
+        ctx.strokeStyle = pal.terra;
+        ctx.lineWidth = 2.5;
+        ctx.beginPath();
+        for (let i = 0; i <= cw; i++) {
+            const t = (i / cw) * tDur;
+            const y = Math.sin(TAU * fin * t);
+            if (i === 0) ctx.moveTo(sx(t), sy(y));
+            else ctx.lineTo(sx(t), sy(y));
+        }
+        ctx.stroke();
+    } else {
+        ctx.strokeStyle = 'rgba(184, 92, 80, 0.28)';
+        ctx.lineWidth = 2;
+        ctx.setLineDash([4, 4]);
+        ctx.beginPath();
+        for (let i = 0; i <= cw; i++) {
+            const t = (i / cw) * tDur;
+            const y = Math.sin(TAU * fin * t);
+            if (i === 0) ctx.moveTo(sx(t), sy(y));
+            else ctx.lineTo(sx(t), sy(y));
+        }
+        ctx.stroke();
+        ctx.setLineDash([]);
+    }
+
+    if (fin > fNyq && !filterOn) {
+        ctx.strokeStyle = pal.sageDark;
+        ctx.lineWidth = 2.5;
+        ctx.setLineDash([8, 4]);
+        ctx.beginPath();
+        for (let i = 0; i <= cw; i++) {
+            const t = (i / cw) * tDur;
+            const y = Math.sin(TAU * fAl * t);
+            if (i === 0) ctx.moveTo(sx(t), sy(y));
+            else ctx.lineTo(sx(t), sy(y));
+        }
+        ctx.stroke();
+        ctx.setLineDash([]);
+    }
+
+    const Ts = 1 / fs;
+    ctx.fillStyle = pal.woodDark;
+    for (let t = 0; t < tDur; t += Ts) {
+        const y = filtered ? 0 : Math.sin(TAU * fin * t);
+        ctx.beginPath();
+        ctx.arc(sx(t), sy(y), 6, 0, TAU);
+        ctx.fill();
+        ctx.strokeStyle = pal.paper;
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+    }
+
+    ctx.fillStyle = pal.inkFaded;
+    ctx.font = '11px DM Sans';
+    ctx.textAlign = 'right';
+    ctx.fillText('1.0',  pad.left - 8, sy(1)  + 4);
+    ctx.fillText('0',    pad.left - 8, sy(0)  + 4);
+    ctx.fillText('-1.0', pad.left - 8, sy(-1) + 4);
+
+    ctx.textAlign = 'center';
+    ctx.fillStyle = pal.inkSoft;
+    ctx.fillText('Tiempo (s)', w / 2, h - 8);
+
+    ctx.save();
+    ctx.translate(12, h / 2);
+    ctx.rotate(-Math.PI / 2);
+    ctx.fillText('Nivel', 0, 0);
+    ctx.restore();
+
+    if (filtered) {
+        ctx.fillStyle = pal.sageDark;
+        ctx.font = 'bold 12px DM Sans';
+        ctx.textAlign = 'center';
+        ctx.fillText('⚡ FILTRO ANTI-ALIAS ACTIVO — Señal eliminada', w / 2, pad.top + 15);
+    }
+
+    $('legendOriginal').textContent = filtered
+        ? `Original (${fin} Hz) — FILTRADA`
+        : `Original (${fin} Hz)`;
+    $('legendSamples').textContent = `Muestras (${fs} Hz)`;
+
+    const aliasItem = $('legendAliasItem');
+    if (fin > fNyq && !filterOn) {
+        aliasItem.style.display = 'flex';
+        $('legendAlias').textContent = `Alias (${fAl.toFixed(1)} Hz)`;
+    } else {
+        aliasItem.style.display = 'none';
+    }
+}
+
+function drawFreq() {
+    const { ctx, w, h } = setupCanvas(cvFreq);
+    const pad = { top: 20, right: 20, bottom: 40, left: 30 };
+    const cw = w - pad.left - pad.right;
+    const ch = h - pad.top - pad.bottom;
+
+    const fs = state.fSample;
+    const fin = state.fStim;
+    const fNyq = fs / 2;
+    const fAl = foldback(fin, fs);
+    const filterOn = state.antialiasOn;
+    const filtered = filterOn && fin > fNyq;
+
+    const fMax = Math.max(fin * 1.2, fs * 1.5, 30);
+
+    ctx.fillStyle = pal.paper;
+    ctx.fillRect(0, 0, w, h);
+
+    const sx = f => pad.left + (f / fMax) * cw;
+    const sy = v => pad.top + ch - (v * ch);
+
+    const nBands = Math.ceil(fMax / fNyq) + 1;
+    for (let i = 0; i < nBands; i++) {
+        const x1 = sx(i * fNyq);
+        const x2 = sx((i + 1) * fNyq);
+        ctx.fillStyle = i % 2 === 0 ? pal.cream : pal.creamDeep;
+        ctx.globalAlpha = 0.7;
+        ctx.fillRect(x1, pad.top, x2 - x1, ch);
+    }
+
+    ctx.fillStyle = pal.sageSoft;
+    ctx.globalAlpha = 0.7;
+    ctx.fillRect(sx(0), pad.top, sx(fNyq) - sx(0), ch);
+    ctx.globalAlpha = 1;
+
+    if (filterOn) {
+        ctx.fillStyle = 'rgba(184, 92, 80, 0.08)';
+        ctx.fillRect(sx(fNyq), pad.top, cw - (sx(fNyq) - pad.left), ch);
+
+        ctx.strokeStyle = pal.terra;
+        ctx.lineWidth = 3;
+        ctx.setLineDash([6, 4]);
+        ctx.beginPath();
+        ctx.moveTo(sx(fNyq), pad.top);
+        ctx.lineTo(sx(fNyq), sy(0));
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        ctx.fillStyle = pal.terra;
+        ctx.font = 'bold 10px DM Sans';
+        ctx.textAlign = 'center';
+        ctx.save();
+        ctx.translate(sx(fNyq) + 12, pad.top + ch / 2);
+        ctx.rotate(-Math.PI / 2);
+        ctx.fillText('CORTE DEL FILTRO', 0, 0);
+        ctx.restore();
+    }
+
+    ctx.fillStyle = pal.woodDark;
+    ctx.font = 'bold 12px DM Sans';
+    ctx.textAlign = 'center';
+    ctx.fillText('Banda Base', sx(fNyq / 2), pad.top + 20);
+
+    if (!filtered) {
+        ctx.strokeStyle = pal.terra;
+        ctx.lineWidth = 4;
+        ctx.beginPath();
+        ctx.moveTo(sx(fin), sy(0));
+        ctx.lineTo(sx(fin), sy(0.5));
+        ctx.stroke();
+
+        ctx.fillStyle = pal.terra;
+        ctx.beginPath();
+        ctx.moveTo(sx(fin),     sy(0.5) - 6);
+        ctx.lineTo(sx(fin) - 8, sy(0.5) - 18);
+        ctx.lineTo(sx(fin) + 8, sy(0.5) - 18);
+        ctx.closePath();
+        ctx.fill();
+    } else {
+        ctx.strokeStyle = 'rgba(184, 92, 80, 0.3)';
+        ctx.lineWidth = 3;
+        ctx.setLineDash([4, 4]);
+        ctx.beginPath();
+        ctx.moveTo(sx(fin), sy(0));
+        ctx.lineTo(sx(fin), sy(0.2));
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        ctx.fillStyle = 'rgba(184, 92, 80, 0.3)';
+        ctx.beginPath();
+        ctx.moveTo(sx(fin),     sy(0.2) - 4);
+        ctx.lineTo(sx(fin) - 6, sy(0.2) - 14);
+        ctx.lineTo(sx(fin) + 6, sy(0.2) - 14);
+        ctx.closePath();
+        ctx.fill();
+
+        ctx.strokeStyle = pal.terra;
+        ctx.lineWidth = 2;
+        const cx = sx(fin), cy = sy(0.35);
+        ctx.beginPath();
+        ctx.moveTo(cx - 8, cy - 8);
+        ctx.lineTo(cx + 8, cy + 8);
+        ctx.moveTo(cx + 8, cy - 8);
+        ctx.lineTo(cx - 8, cy + 8);
+        ctx.stroke();
+    }
+
+    if (fin > fNyq && !filterOn) {
+        ctx.strokeStyle = pal.sageDark;
+        ctx.lineWidth = 3;
+        ctx.setLineDash([6, 3]);
+        ctx.beginPath();
+        ctx.moveTo(sx(fAl), sy(0));
+        ctx.lineTo(sx(fAl), sy(0.35));
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        ctx.fillStyle = pal.sageDark;
+        ctx.beginPath();
+        ctx.moveTo(sx(fAl),     sy(0.35) - 5);
+        ctx.lineTo(sx(fAl) - 6, sy(0.35) - 15);
+        ctx.lineTo(sx(fAl) + 6, sy(0.35) - 15);
+        ctx.closePath();
+        ctx.fill();
+
+        ctx.strokeStyle = pal.woodDark;
+        ctx.lineWidth = 2;
+        ctx.globalAlpha = 0.7;
+        ctx.setLineDash([4, 4]);
+        ctx.beginPath();
+        ctx.moveTo(sx(fin), sy(0.5)  - 10);
+        ctx.lineTo(sx(fAl), sy(0.35) - 8);
+        ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.globalAlpha = 1;
+    }
+
+    ctx.strokeStyle = pal.inkFaded;
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(pad.left, sy(0));
+    ctx.lineTo(w - pad.right, sy(0));
+    ctx.stroke();
+
+    ctx.fillStyle = pal.inkFaded;
+    ctx.font = '10px DM Sans';
+    ctx.textAlign = 'center';
+
+    const step = fMax > 100 ? 25 : fMax > 50 ? 10 : 5;
+    for (let f = 0; f <= fMax; f += step) {
+        const x = sx(f);
+        ctx.beginPath();
+        ctx.moveTo(x, sy(0));
+        ctx.lineTo(x, sy(0) + 5);
+        ctx.stroke();
+        ctx.fillText(String(f), x, sy(0) + 18);
+    }
+
+    ctx.fillStyle = pal.inkSoft;
+    ctx.font = '11px DM Sans';
+    ctx.fillText('Frecuencia (Hz)', w / 2, h - 8);
+
+    const lgY = pad.top + ch - 40;
+    const lgX = w - pad.right - 150;
+
+    ctx.font = '10px DM Sans';
+    ctx.textAlign = 'left';
+
+    if (!filtered) {
+        ctx.fillStyle = pal.terra;
+        ctx.fillRect(lgX, lgY, 16, 4);
+        ctx.fillStyle = pal.inkSoft;
+        ctx.fillText(`Estímulo (${fin} Hz)`, lgX + 22, lgY + 4);
+    } else {
+        ctx.fillStyle = 'rgba(184, 92, 80, 0.3)';
+        ctx.fillRect(lgX, lgY, 16, 4);
+        ctx.fillStyle = pal.inkFaded;
+        ctx.fillText(`Estímulo (${fin} Hz) — FILTRADA`, lgX + 22, lgY + 4);
+    }
+
+    if (fin > fNyq && !filterOn) {
+        ctx.fillStyle = pal.sageDark;
+        ctx.fillRect(lgX, lgY + 16, 16, 4);
+        ctx.fillStyle = pal.inkSoft;
+        ctx.fillText(`Alias (${fAl.toFixed(1)} Hz)`, lgX + 22, lgY + 20);
+    } else if (filterOn) {
+        ctx.fillStyle = pal.sageDark;
+        ctx.fillRect(lgX, lgY + 16, 16, 4);
+        ctx.fillStyle = pal.inkSoft;
+        ctx.fillText('Filtro Anti-Alias ON', lgX + 22, lgY + 20);
+    }
+}
+
+function refresh() {
+    const fs = state.fSample;
+    const fin = state.fStim;
+    const fNyq = fs / 2;
+    const fAl = foldback(fin, fs);
+
+    nyquistDisplay.textContent = `${fNyq.toFixed(1)} Hz`;
+
+    if (fin > fNyq) {
+        if (state.antialiasOn) {
+            aliasDisplay.textContent = '— (Filtrado)';
+            aliasDisplay.classList.add('muted');
+            aliasDisplay.style.color = 'var(--sage-dark)';
+        } else {
+            aliasDisplay.textContent = `${fAl.toFixed(1)} Hz`;
+            aliasDisplay.classList.remove('muted');
+            aliasDisplay.style.color = '';
+        }
+    } else {
+        aliasDisplay.textContent = '—';
+        aliasDisplay.classList.add('muted');
+        aliasDisplay.style.color = '';
+    }
+
+    drawTime();
+    drawFreq();
+}
+
+sampleSlider.addEventListener('input', e => {
+    state.fSample = parseInt(e.target.value);
+    sampleInput.value = state.fSample;
+    refresh();
+});
+
+sampleInput.addEventListener('input', e => {
+    state.fSample = clamp(parseInt(e.target.value) || 2, 2, 200);
+    sampleSlider.value = state.fSample;
+    refresh();
+});
+
+stimSlider.addEventListener('input', e => {
+    state.fStim = parseInt(e.target.value);
+    stimInput.value = state.fStim;
+    refresh();
+});
+
+stimInput.addEventListener('input', e => {
+    state.fStim = clamp(parseInt(e.target.value) || 1, 1, 200);
+    stimSlider.value = state.fStim;
+    refresh();
+});
+
+btnReset.addEventListener('click', () => {
+    state.fSample = 50;
+    state.fStim = 1;
+    state.antialiasOn = false;
+    sampleSlider.value = 50;
+    sampleInput.value = 50;
+    stimSlider.value = 1;
+    stimInput.value = 1;
+    antialiasCheck.checked = false;
+    refresh();
+});
+
+antialiasCheck.addEventListener('change', e => {
+    state.antialiasOn = e.target.checked;
+    refresh();
+});
+
+btnNotas.addEventListener('click', () => modalNotas.classList.add('active'));
+btnCloseModal.addEventListener('click', () => modalNotas.classList.remove('active'));
+modalNotas.addEventListener('click', e => {
+    if (e.target === modalNotas) modalNotas.classList.remove('active');
+});
+
+window.addEventListener('resize', () => { drawTime(); drawFreq(); });
+
+document.addEventListener('DOMContentLoaded', () => {
+    renderMath();
+    refresh();
+});
+</script>
+</body>
+</html>
